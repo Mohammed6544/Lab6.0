@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        a, button {
+            text-decoration: none;
+            color: white;
+            background-color: #0275d8;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-right: 10px;
+            margin-top: 10px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        a:hover, button:hover {
+            background-color: #025aa5;
+            color: white;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        select {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Details</h1>
+        <h2>{{ student.name }}</h2>
+        <h3>Courses:</h3>
+        <ul>
+            {% for course in student.courses.all %}
+                <li>{{ course.name }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Register for a new course:</h3>
+        <form method="post">
+            {% csrf_token %}
+            <select name="course">
+                {% for course in available_courses %}
+                    <option value="{{ course.name }}">{{ course.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Register</button>
+        </form>
+        <a href="{% url 'students' %}">Back to Students</a>
+        <a href="{% url 'courses' %}">Back to Courses</a>
+    </div>
+</body>
+</html>
